@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Поток засыпает на 2 секунды -> runOnUiThread(runn1) => выполнение runn1 в главном потоке -> поток засыпает на 1 секунду -> postDelayed() на объекте binding.tvInfo с аргументами runn3 и задержкой в 2 секунды -> планирование выполнения runn3 через 2 секунды, используя главный поток -> post() на объекте binding.tvInfo с аргументом runn2, который также планирует выполнение runn2 на главном потоке, но без зарержки -> start().
+Различия между методами runOnUiThread(), postDelayed() и post() в контексте TextView:
+
+runOnUiThread() - для выполнения кода, изменяющего интерфейс пользователя в главном потоке. В данном случае, когда вызывается runOnUiThread(runn1), runn1 будет выполнен в главном потоке, что позволит обновить текст в TextView.
+
+postDelayed() - позволяет запланировать выполнение определенного кода через определенное количество времени. В данном случае, runn3 будет выполнен через 2 секунды после вызова postDelayed(runn3, 2000).
+
+post() - метод также используется для запланированного выполнения кода, но без задержки. В данном случае, runn2 будет выполнен сразу после вызова runOnUiThread(runn2)."
+        android:maxLines="25"
+        android:lines="22"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tvInfo"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.089" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
